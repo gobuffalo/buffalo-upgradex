@@ -14,7 +14,7 @@ var availableCmd = &cobra.Command{
 	Short: "a list of available buffalo plugins",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		plugs := plugins.Commands{
-			{Name: upgradexCmd.Use, BuffaloCommand: "root", Description: upgradexCmd.Short, Aliases: []string{}},
+			{Name: upgradexCmd.Use, BuffaloCommand: "root", Description: upgradexCmd.Short, Aliases: upgradexCmd.Aliases},
 		}
 		return json.NewEncoder(os.Stdout).Encode(plugs)
 	},
