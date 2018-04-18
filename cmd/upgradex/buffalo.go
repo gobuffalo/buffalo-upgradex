@@ -1,10 +1,11 @@
 package upgradex
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
-	"github.com/gobuffalo/buffalo/meta"
+	"github.com/gobuffalo/buffalo/buffalo/cmd/updater"
 	"github.com/pkg/errors"
 )
 
@@ -26,20 +27,8 @@ func BuffaloApp(opts Options) error {
 		return errors.Wrapf(ErrNotBuffaloApp, "path: %s", opts.Path)
 	}
 
-	app := meta.New(opts.Path)
-	if app.WithDep {
-		return withDep(app, opts)
-	}
-	return withoutDep(app, opts)
-}
-
-func withDep(app meta.App, opts Options) error {
-	return execr("dep", "ensure", "-v", "-update")
-}
-
-func withoutDep(app meta.App, opts Options) error {
-	opts.withTests = true
-	return getter("./...", opts)
+	fmt.Println("about run the app updater")
+	return updater.Run()
 }
 
 func isApp(root string) bool {
