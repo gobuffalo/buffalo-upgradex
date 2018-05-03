@@ -16,6 +16,9 @@ func BuffaloCLI(opts Options) error {
 	if opts.SkipBuffalo {
 		return nil
 	}
+	if err := getter("github.com/gobuffalo/buffalo", opts); err != nil {
+		return errors.WithStack(err)
+	}
 	return getter("github.com/gobuffalo/buffalo/buffalo", opts)
 }
 
